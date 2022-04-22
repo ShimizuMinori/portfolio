@@ -19,6 +19,9 @@
 //Auth::routes();
 
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthController;
+
 //ログアウト中のページ
 Route::get('/login', 'Auth\LoginController@login');
 Route::post('/login', 'Auth\LoginController@login');
@@ -32,9 +35,26 @@ Route::get('/added', 'Auth\RegisterController@added');
 //ログイン中のページ
 Route::get('/top','PostsController@index');
 
-Route::get('/profile','UsersController@profile');
+//top画面の表示
+Route::get('/index','PostsController@index');
 
-Route::get('/search','UsersController@index');
+// 投稿機能
+Route::post('/post/create','PostsController@index');
+
+// 削除機能
+Route::get('/post/{id}/delete', 'PostsController@delete');
+
+//編集機能
+Route::get('post/{id}/update-form', 'PostsController@update');
+Route::post('/post/update','PostsController@update');
+
+
+Route::get('/profile','UsersController@profile');
+Route::get('/{id}/profile','UsersController@viewProfile');
+
+// 検索
+Route::get('/search','UsersController@search');
+Route::post('/searching','UsersController@searching');
 
 Route::get('/follow-list','PostsController@index');
 Route::get('/follower-list','PostsController@index');

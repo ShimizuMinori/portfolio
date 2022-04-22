@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="description" content="ページの内容を表す文章" />
     <title></title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/reset.">
+    <link rel="stylesheet" href="/style.">
     <!--スマホ,タブレット対応-->
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <!--サイトのアイコン指定-->
@@ -22,15 +22,18 @@
 <body>
     <header>
         <div id = "head">
-        <h1><a><img src="images/logo.png"></a></h1>
-            <div id="">
-                <div id="">
-                    <p>〇〇さん<img src="images/arrow.png"></p>
+        <h1><a href="/index"><img src="images/main_logo.png"></a></h1>
+            <div id="userWrap">
+                <div id="user">
+                    <!-- Controller.phpで設定した$name＝テーブル「users」からデータを引っ張る -->
+                    <p class="container">{{$name->username}}さん
+                    <img src="images/{{$name->images}}">
+                    </p>
                 <div>
                 <ul>
-                    <li><a href="/top">ホーム</a></li>
-                    <li><a href="/profile">プロフィール</a></li>
-                    <li><a href="/logout">ログアウト</a></li>
+                    <li><a href="/top"><a href="/index">HOME</a></li>
+                    <li><a href="/profile"><a href="/profile">プロフィール編集</a></li>
+                    <li><a href="/logout"><a href="/logout">ログアウト</a></li>
                 </ul>
             </div>
         </div>
@@ -41,7 +44,7 @@
         </div >
         <div id="side-bar">
             <div id="confirm">
-                <p>〇〇さんの</p>
+                <p>{{$name->username}}さんの</p>
                 <div>
                 <p>フォロー数</p>
                 <p>〇〇名</p>
@@ -53,7 +56,7 @@
                 </div>
                 <p class="btn"><a href="">フォロワーリスト</a></p>
             </div>
-            <p class="btn"><a href="">ユーザー検索</a></p>
+            <p class="btn"><a href="/search">ユーザー検索</a></p>
         </div>
     </div>
     <footer>
