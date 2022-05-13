@@ -22,10 +22,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 
-//ログアウト中のページ
+//ログイン処理
 Route::get('/login', 'Auth\LoginController@login');
 Route::post('/login', 'Auth\LoginController@login');
 
+// 新規ユーザー作成
 Route::get('/register', 'Auth\RegisterController@register');
 Route::post('/register', 'Auth\RegisterController@register');
 
@@ -35,11 +36,12 @@ Route::get('/added', 'Auth\RegisterController@added');
 //ログイン中のページ
 Route::get('/top','PostsController@index');
 
+
 //top画面の表示
 Route::get('/index','PostsController@index');
 
 // 投稿機能
-Route::post('/post/create','PostsController@index');
+Route::post('/post/create','PostsController@create');
 
 // 削除機能
 Route::get('/post/{id}/delete', 'PostsController@delete');
@@ -48,9 +50,10 @@ Route::get('/post/{id}/delete', 'PostsController@delete');
 Route::get('post/{id}/update-form', 'PostsController@update');
 Route::post('/post/update','PostsController@update');
 
-
+// ログイン中ユーザーのプロフィール
 Route::get('/profile','UsersController@profile');
-Route::get('/{id}/profile','UsersController@viewProfile');
+// 他ユーザーのプロフィール
+Route::get('/{id}/otherprofile','UsersController@viewProfile');
 
 // 検索
 Route::get('/search','UsersController@search');
@@ -60,4 +63,16 @@ Route::get('/follow-list','PostsController@index');
 Route::get('/follower-list','PostsController@index');
 
 
+//フォロー機能
+Route::get('/{id}/follow','UsersController@follow');
+Route::get('/{id}/unFollow','UsersController@unFollow');
 
+
+// フォロー・フォロワー一覧
+Route::get('/followList','FollowsController@followList');
+Route::get('/followerList','FollowsController@followerList');
+
+
+
+// ログアウト機能
+Route::get('/logout','Auth\LoginController@logout');

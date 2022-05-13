@@ -8,7 +8,6 @@
         {!! Form::open(array('url' => '/searching', 'method' => 'post')) !!}
 
         {{ Form::text('search',null,['class' => 'input', 'placeholder' => 'ユーザー名']) }}
-        <!-- 画像をボタンにできていない -->
         {!! Form::submit('🔎',['class' => 'search_btn']) !!}
         {!! Form::close() !!}
       </div>
@@ -31,22 +30,20 @@
   <div id="result">
       @forelse($result as $result)
         <div class="result_user">
-            <a href="/{{$result->id}}/profile"><img class="bicImg" src="images/{{ $result->images }}" alt="プロフィール画像"></a>
+            <a href="/{{$result->id}}/otherprofile"><img class="bicImg" src="images/{{ $result->images }}" alt="プロフィール画像"></a>
             <p class="result_username">{{ $result->username }}</p>
 
-            <!-- ボタンの切り替え -->
-            <!-- idがフォローしている人か判断 -->
-            <!-- 自分はフォローできないようにする -->
-            @if(in_array($result->id,$check))
-              <!-- フォロー外す -->
-              <p class="btn unfollow"><a href="/{{$result->id}}/unFollow">フォローをはずす</a></p>
-            @elseif($result->id == Auth::id())
-              <!-- 自分はフォローできないように何も表示しない -->
-            @else
-              <!-- フォローボタン -->
-              <p class="btn follow"><a href="/{{$result->id}}/follow">フォローする</a></p>
-            @endif
-            <br>
+            <!-- フォローワーがいる時は「はずす」ボタンを表示する -->
+            <div class="">
+              @if(in_array($result->id,$check))
+              <a href="/{{$result->id}}/unFollow"><p class="">フォローはずす</p></a>
+
+              <!-- フォロワーがいない時は「フォローする」ボタンを表示 -->
+              @else
+              <a href="/{{$result->id}}/follow"><p class="">フォローする</p></a>
+              @endif
+            </div>
+
         </div>
       @empty
         <p>該当なし</p>

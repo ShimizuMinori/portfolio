@@ -19,6 +19,9 @@
     <link rel="apple-touch-icon-precomposed" href="画像のURL" />
     <!--OGPタグ/twitterカード-->
 </head>
+
+
+
 <body>
     <header>
         <div id = "head">
@@ -26,9 +29,8 @@
             <div id="userWrap">
                 <div id="user">
                     <!-- Controller.phpで設定した$name＝テーブル「users」からデータを引っ張る -->
-                    <p class="container">{{$name->username}}さん
-                    <img src="images/{{$name->images}}">
-                    </p>
+                    <p class="container">{{$name->username}}さん</p>
+                    <a href="/profile"><img src="{{ asset('/images/' . $name->images) }}"></a>
                 <div>
                 <ul>
                     <li><a href="/top"><a href="/index">HOME</a></li>
@@ -38,6 +40,9 @@
             </div>
         </div>
     </header>
+
+
+
     <div id="row">
         <div id="container">
             @yield('content')
@@ -45,16 +50,21 @@
         <div id="side-bar">
             <div id="confirm">
                 <p>{{$name->username}}さんの</p>
+
+
+                <!-- UsersControllerのsearchからカウント情報を取得している -->
                 <div>
                 <p>フォロー数</p>
-                <p>〇〇名</p>
+                <p>名</p>
                 </div>
-                <p class="btn"><a href="">フォローリスト</a></p>
+                <p class="btn"><a href="/followList">フォローリスト</a></p>
                 <div>
                 <p>フォロワー数</p>
-                <p>〇〇名</p>
+                <p>名</p>
                 </div>
-                <p class="btn"><a href="">フォロワーリスト</a></p>
+
+
+                <p class="btn"><a href="/followerList">フォロワーリスト</a></p>
             </div>
             <p class="btn"><a href="/search">ユーザー検索</a></p>
         </div>

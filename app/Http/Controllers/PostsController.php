@@ -33,7 +33,7 @@ class PostsController extends Controller
             'created_at' => now(),
         ]);
 
-        return redirect('posts./index');
+        return redirect('top');
     }
 
     //
