@@ -23,8 +23,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 
 //ログイン処理
-Route::get('/login', 'Auth\LoginController@login');
+Route::get('/login', 'Auth\LoginController@login')->name('/login');
 Route::post('/login', 'Auth\LoginController@login');
+
+// ログアウト機能
+Route::get('/logout','Auth\LoginController@logout');
 
 // 新規ユーザー作成
 Route::get('/register', 'Auth\RegisterController@register');
@@ -72,7 +75,3 @@ Route::get('/{id}/unFollow','UsersController@unFollow');
 Route::get('/followList','FollowsController@followList');
 Route::get('/followerList','FollowsController@followerList');
 
-
-
-// ログアウト機能
-Route::get('/logout','Auth\LoginController@logout');

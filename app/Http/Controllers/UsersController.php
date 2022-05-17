@@ -47,8 +47,6 @@ class UsersController extends Controller
                 return view('users.search',[
                     'username'=>$username,
                     'user_id'=>$user_id,
-                    'count_follow'=>$count_follow,
-                    'count_follower'=>$count_follower,
                     'result'=>$result,
                     'check'=>$check,
                 ]);
@@ -146,7 +144,7 @@ class UsersController extends Controller
                     ->delete();
 
 
-            return view('users.search');}
+            return redirect('/search');}
 
             // 他ユーザープロフィール
             public function viewProfile($id){

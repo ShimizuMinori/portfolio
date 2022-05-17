@@ -52,15 +52,14 @@
                 <p>{{$name->username}}さんの</p>
 
 
-                <!-- UsersControllerのsearchからカウント情報を取得している -->
                 <div>
                 <p>フォロー数</p>
-                <p>名</p>
+                <p>{{$count_follow}}名</p>
                 </div>
                 <p class="btn"><a href="/followList">フォローリスト</a></p>
                 <div>
                 <p>フォロワー数</p>
-                <p>名</p>
+                <p>{{$count_follower}}名</p>
                 </div>
 
 
