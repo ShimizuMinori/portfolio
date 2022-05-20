@@ -57,6 +57,8 @@ Route::post('/post/update','PostsController@update');
 Route::get('/profile','UsersController@profile');
 // 他ユーザーのプロフィール
 Route::get('/{id}/otherprofile','UsersController@viewProfile');
+// ログイン中ユーザーの編集
+Route::post('/profile','UsersController@updateprofile');
 
 // 検索
 Route::get('/search','UsersController@search');

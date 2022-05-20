@@ -204,4 +204,77 @@ class UsersController extends Controller
 
             }
 
+            public function updateprofile(Request $request){
+
+                $rules = [
+                    'username' => 'required|min:4|max:12',
+                    'mail' => 'required|email|min:4|max:20',
+                    //新しいパスワードと古いパスワードの判別ができていない
+                    'new_password' => 'nullable|min:4|max:12',
+                    'bio' => 'max:200',
+                ];
+                //エラーメッセージ
+                $message = [
+                    'username.min' => 'ユーザー名は4文字以上で入力してください。',
+                    'username.max' => 'ユーザー名は12文字以内で入力してください。',
+                    'username.required' => 'ユーザー名は入力必須です。',
+                    'mail.min' => 'メールアドレスは４文字以上で入力してください。',
+                    'mail.max' => 'メールアドレスは12文字以内で入力してください。',
+                    'mail.required' => 'メールアドレスは入力必須です。',
+                    'mail.email' => 'アドレス形式で入力してください。',
+                    'new_password.min' => 'パスワードは４文字以上で入力してください。',
+                    'new_password.max' => 'パスワードは12文字以内で入力してください。',
+                    'bio.max' => '自己紹介文は200文字以内で入力してください。',
+                ];
+        
+        
+                //validator利用
+                $validator = Validator::make($request->all(), $rules, $message);
+        
+                //validation
+                if($validator->fails()) {
+                    return redirect('/profile')
+                    ->withErrors($validator)
+                    ->withInput();
+                };
+
+
+                $id = Auth::id();
+
+                // 入力した内容を取得する
+                $username = $request->input('username');
+                $mail = $request->input('mail');
+                $bio = $request->input('bio');
+                $update_password = $request->input('update_password');
+
+                // 新しいパスワードを入力した場合
+                if(isset($update_password)){
+                    $update_password = $request->input('update_password');
+                    \DB::table('users')
+                    ->where('id', Auth::id())
+                    ->update(
+                        ['username' => $username,
+                        'mail' => $mail,
+                        'bio' => $bio,
+                        'password' => bcrypt($update_password),
+                        ]);
+
+                        return redirect('/profile');
+
+                }else{
+                // パスワードは更新せず、他項目を更新する場合
+
+                // usersテーブルのidと、inputを使って編集したidを一致させる。usersテーブルの各カラムに収納する
+                \DB::table('users')
+                ->where('id', Auth::id())
+                ->update(
+                ['username' => $username,
+                 'mail' => $mail,
+                 'bio' => $bio,
+                ]);
+
+                return redirect('/profile');
+                }
+            }
+
 }

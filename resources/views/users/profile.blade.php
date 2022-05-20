@@ -5,13 +5,12 @@
 
 <!-- ①ログイン中のユーザープロフィール 作成途中-->
     <div class="">
-    ログイン中...
 
         <div class="">
             <img src="images/{{$name->images}}" alt="ログインユーザーのアイコン">
         </div>
 
-        {!! Form::open(['action' => 'UsersController@profile', 'method' => 'post', 'files' => true]) !!}
+        {!! Form::open(['action' => 'UsersController@updateprofile', 'method' => 'post', 'files' => true]) !!}
         <div class="">
             <p class="">UserName</p>
             {{ Form::label('ユーザー名') }}
@@ -41,10 +40,10 @@
 
             <p class="">new Password</p>
             {{ Form::label('新パスワード') }}
-            {{ Form::password('password',null,['class' => '',"type"=>"password"]) }}
+            {{ Form::input('update_password','update_password',$name->password,['class' => '',"type"=>"password"]) }}
 
-            @if($errors->has('password'))
-            <p>{{$errors->first('password')}}</p>
+            @if($errors->has('update_password'))
+            <p>{{$errors->first('update_password')}}</p>
             @endif
         
                 <br>
@@ -52,7 +51,7 @@
 
             <p class="">Bio</p>
             {{ Form::label('自己紹介') }}
-            {{ Form::text('bio',null,['class' => '',"placeholder"=>"$name->bio"])}}
+            {{ Form::input('bio','bio',$name->bio,['class' => '',"placeholder"=>"$name->bio"])}}
 
             @if($errors->has('bio'))
             <p>{{$errors->first('bio')}}</p>
