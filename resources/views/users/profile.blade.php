@@ -40,7 +40,7 @@
 
             <p class="">new Password</p>
             {{ Form::label('新パスワード') }}
-            {{ Form::input('update_password','update_password',$name->password,['class' => '',"type"=>"password"]) }}
+            {{ Form::input('update_password','update_password',null,['class' => '',"type"=>"password"]) }}
 
             @if($errors->has('update_password'))
             <p>{{$errors->first('update_password')}}</p>
@@ -61,7 +61,7 @@
 
             <p class="">Icon Image</p>
             {{ Form::label('アイコン画像')}}
-            {{ Form::file('images',null,['class' => ''])}}
+            {{ Form::file('update_images',null,$name->images,['class' => ''])}}
                 <br>
             
             <button type="submit" class="">更新</button>

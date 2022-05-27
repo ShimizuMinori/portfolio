@@ -42,7 +42,7 @@
            <div class="modal-window" id="modal{{ $list->id }}">
                 <div class="inner">
                     {!! Form::open(array('url' => '/post/update', 'method' => 'post')) !!}
-                    {!! Form::input('hidden','updateid',$list->id) !!}
+                    {!! Form::input('hidden','updated',$list->id) !!}
                     {!! Form::input('text','update',$list->posts,['class' => 'input', 'required']) !!}
                     <button type="submit" class="update-btn"><img src="{{ asset('images/edit.png') }}" lat="編集"></button>
                     {!! Form::close() !!}

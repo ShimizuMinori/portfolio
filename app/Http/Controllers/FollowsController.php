@@ -44,8 +44,6 @@ class FollowsController extends Controller
 
         return view('follows.followList',[
             'username' => $username,
-            'count_follow' => $count_follow,
-            'count_follower' => $count_follower,
             'list' => $list,
             'images' => $images,
         ]);

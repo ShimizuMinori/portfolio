@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 //Authのユーザー情報を受け取る
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+
 
 class PostsController extends Controller
 {
@@ -76,12 +78,25 @@ class PostsController extends Controller
     // 編集処理
     public function update(Request $request)
     {
+        $rules = ['update' => 'max:200'];
+        $message = ['update' => '200文字以内で入力してください。',];
+
+        //validator利用
+        $validator = Validator::make($request->all(), $rules, $message);
+        
+        //validation
+        if($validator->fails()) {
+        return redirect('/index')
+            ->withErrors($validator)
+            ->withInput();
+        };
+
 
         //現在ログイン中のユーザーidを取得
         $id = Auth::id();
 
         // $requestからinputを使ってつぶやきのidを抽出。
-        $post_id = $request->input('updateid');
+        $post_id = $request->input('updated');
         // $requestからinputを使ってupPost'（更新したつぶやき）を抽出。
         $up_post = $request->input('update');
 

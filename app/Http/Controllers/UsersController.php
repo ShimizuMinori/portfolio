@@ -16,42 +16,42 @@ class UsersController extends Controller
     // layouts.loginのフォロー・フォロワーのカウントにもつがなっている
     public function search(){
 
-                //①usernameの取得：username
-                $username = Auth::user();
-                //②user_idの取得：user_id
-                $user_id = Auth::id();
-                //フォローしている人のidの取得、カウント：int
-                $follow = \DB::table('follows')
-                ->where('follow_id',$user_id)
-                ->get(['follower_id']);
-                $count_follow = count($follow);
-                //フォローされている人のidの取得、カウント：int
-                $follower = \DB::table('follows')
-                ->where('follower_id',$user_id)
-                ->get(['follow_id']);
-                $count_follower = count($follower);
-                //ユーザー一覧を返す
-                $result = \DB::table('users')
-                        ->select('username','id','images')
-                        // ログインユーザー以外を抽出
-                        ->where('id', '<>', Auth::id())
-                        ->get();
-                //チェック用のfollowerを取り出す
-                $check1 = \DB::table('follows')
-                        ->where('follow_id',$user_id)
-                        ->select('follower_id')
-                        ->get()
-                        ->toArray();
-                $check = array_column($check1,'follower_id');
+        //①usernameの取得：username
+        $username = Auth::user();
+        //②user_idの取得：user_id
+        $user_id = Auth::id();
+        //フォローしている人のidの取得、カウント：int
+        $follow = \DB::table('follows')
+            ->where('follow_id',$user_id)
+            ->get(['follower_id']);
+        $count_follow = count($follow);
+        //フォローされている人のidの取得、カウント：int
+        $follower = \DB::table('follows')
+            ->where('follower_id',$user_id)
+            ->get(['follow_id']);
+        $count_follower = count($follower);
+        //ユーザー一覧を返す
+        $result = \DB::table('users')
+            ->select('username','id','images')
+            // ログインユーザー以外を抽出
+            ->where('id', '<>', Auth::id())
+            ->get();
+        //チェック用のfollowerを取り出す
+        $check1 = \DB::table('follows')
+            ->where('follow_id',$user_id)
+            ->select('follower_id')
+            ->get()
+            ->toArray();
+        $check = array_column($check1,'follower_id');
 
-                return view('users.search',[
-                    'username'=>$username,
-                    'user_id'=>$user_id,
-                    'result'=>$result,
-                    'check'=>$check,
-                ]);
+            return view('users.search',[
+                'username'=>$username,
+                'user_id'=>$user_id,
+                'result'=>$result,
+                'check'=>$check,
+            ]);
 
-            }
+    }
 
             public function searching(Request $request){
 
@@ -209,8 +209,7 @@ class UsersController extends Controller
                 $rules = [
                     'username' => 'required|min:4|max:12',
                     'mail' => 'required|email|min:4|max:20',
-                    //新しいパスワードと古いパスワードの判別ができていない
-                    'new_password' => 'nullable|min:4|max:12',
+                    'update_password' => 'nullable|min:4|max:12',
                     'bio' => 'max:200',
                 ];
                 //エラーメッセージ
@@ -222,8 +221,8 @@ class UsersController extends Controller
                     'mail.max' => 'メールアドレスは12文字以内で入力してください。',
                     'mail.required' => 'メールアドレスは入力必須です。',
                     'mail.email' => 'アドレス形式で入力してください。',
-                    'new_password.min' => 'パスワードは４文字以上で入力してください。',
-                    'new_password.max' => 'パスワードは12文字以内で入力してください。',
+                    'update_password.min' => 'パスワードは４文字以上で入力してください。',
+                    'update_password.max' => 'パスワードは12文字以内で入力してください。',
                     'bio.max' => '自己紹介文は200文字以内で入力してください。',
                 ];
         
@@ -246,6 +245,24 @@ class UsersController extends Controller
                 $mail = $request->input('mail');
                 $bio = $request->input('bio');
                 $update_password = $request->input('update_password');
+                $update_images = $request->file('update_images');
+
+                // 画像を更新
+                if(isset($update_images))
+                {
+
+                    $file_name = $update_images->getClientOriginalName();
+                    $update_images->storeAs('', $file_name, 'public');
+
+                     // 更新処理
+                    \DB::table('users')
+                    ->where('id', Auth::id())
+                    ->update([
+                    'images' => $file_name,
+                    ]);
+
+                    return redirect('/profile');
+                }
 
                 // 新しいパスワードを入力した場合
                 if(isset($update_password)){
@@ -262,7 +279,7 @@ class UsersController extends Controller
                         return redirect('/profile');
 
                 }else{
-                // パスワードは更新せず、他項目を更新する場合
+                // 入力が何も無いときパスワードは更新せず、他項目を更新する
 
                 // usersテーブルのidと、inputを使って編集したidを一致させる。usersテーブルの各カラムに収納する
                 \DB::table('users')

@@ -2,13 +2,15 @@
 
 @section('content')
 
+<div class="wrap">
+
 {!! Form::open() !!}
 
 <h2>新規ユーザー登録</h2>
 
 <p>Username<br>
 {{ Form::label('ユーザー名') }}
-{{ Form::text('username',null,['class' => 'input',"placeholder"=>"dawntown"]) }}
+{{ Form::text('username',null,['class' => 'input',"placeholder"=>"dawn"]) }}
 </p>
 @if($errors->has('username'))
 <p>{{$errors->first('username')}}</p>
@@ -42,11 +44,12 @@
 
 
 
-{{ Form::submit('REGISTER') }}
+{{ Form::submit('REGISTER',['class' => 'btn']) }}
 
-<p><a href="/login">ログイン画面へ戻る</a></p>
+<p><a class="link" href="/login">ログイン画面へ戻る</a></p>
 
 {!! Form::close() !!}
 
+</div>
 
 @endsection
