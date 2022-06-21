@@ -4,78 +4,78 @@
 
 
 <!-- ①ログイン中のユーザープロフィール 作成途中-->
-    <div class="">
+    <div id="profile">
 
-        <div class="">
-            <img src="images/{{$name->images}}" alt="ログインユーザーのアイコン">
+        <div class="profileIcon">
+            <img class="userIcon" src="images/{{$name->images}}" alt="ログインユーザーのアイコン">
         </div>
 
         {!! Form::open(['action' => 'UsersController@updateprofile', 'method' => 'post', 'files' => true]) !!}
         <div class="">
-            <p class="">UserName</p>
-            {{ Form::label('ユーザー名') }}
-            {{ Form::input('username','username',$name->username,['class' => '',"placeholder"=>"$name->username"]) }}
+            <div class="profileBox">
+                <p class="">UserName</p>
+                {{ Form::label('ユーザー名') }}
+                {{ Form::input('username','username',$name->username,['class' => 'profileForm',"placeholder"=>"$name->username"]) }}
 
-            @if($errors->has('username'))
-            <p>{{$errors->first('username')}}</p>
-            @endif
+                @if($errors->has('username'))
+                <p>{{$errors->first('username')}}</p>
+                @endif
+            </div>
 
-                <br>
+            <div class="profileBox">
+                <p class="">MailAddress</p>
+                {{ Form::label('メールアドレス') }}
+                {{ Form::input('mail','mail',$name->mail,['class' => 'profileForm',]) }}
 
-            <p class="">MailAddress</p>
-            {{ Form::label('メールアドレス') }}
-            {{ Form::input('mail','mail',$name->mail,['class' => '',]) }}
-
-            @if($errors->has('mail'))
-            <p>{{$errors->first('mail')}}</p>
-            @endif
-
-                <br>
-
-            <p class="">Password</p>
-            {{ Form::label('旧パスワード') }}
-            {{ Form::input('password','password',$name->password,['class'=>'','disabled']) }}
-
-                <br>
-
-            <p class="">new Password</p>
-            {{ Form::label('新パスワード') }}
-            {{ Form::input('update_password','update_password',null,['class' => '',"type"=>"password"]) }}
-
-            @if($errors->has('update_password'))
-            <p>{{$errors->first('update_password')}}</p>
-            @endif
-        
-                <br>
+                @if($errors->has('mail'))
+                <p>{{$errors->first('mail')}}</p>
+                @endif
+            </div>
 
 
-            <p class="">Bio</p>
-            {{ Form::label('自己紹介') }}
-            {{ Form::input('bio','bio',$name->bio,['class' => '',"placeholder"=>"$name->bio"])}}
+            <div class="profileBox">
+                <p class="formTitle">Password</p>
+                {{ Form::label('旧パスワード') }}
+                {{ Form::input('password','password',$name->password,['class'=>'profileForm','disabled']) }}
+            </div>
 
-            @if($errors->has('bio'))
-            <p>{{$errors->first('bio')}}</p>
-            @endif
+            <div class="profileBox">
+                <p class="formTitle">newPassword</p>
+                {{ Form::label('新パスワード') }}
+                {{ Form::input('update_password','update_password',null,['class' => 'profileForm',"type"=>"password"]) }}
 
-                <br>
-
-            <p class="">Icon Image</p>
-            {{ Form::label('アイコン画像')}}
-            {{ Form::file('update_images',null,$name->images,['class' => ''])}}
-                <br>
-            
-            <button type="submit" class="">更新</button>
-
-        </div>
-
-        
-        {!! Form::close() !!}
+                @if($errors->has('update_password'))
+                <p>{{$errors->first('update_password')}}</p>
+                @endif
+            </div>
 
 
-        <div class="">
+            <div class="profileBox">
+                <p class="formTitle">Bio</p>
+                {{ Form::label('自己紹介') }}
+                {{ Form::input('bio','bio',$name->bio,['class' => 'profileForm',"placeholder"=>"$name->bio"])}}
+
+                @if($errors->has('bio'))
+                <p>{{$errors->first('bio')}}</p>
+                @endif
+            </div>
+
+
+            <div class="profileBox">
+                    <p class="formTitle">IconImage</p>
+                <div class="profile_icon">
+                    {{ Form::label('アイコン画像')}}
+                    {{ Form::file('update_images',null,$name->images,['class' => 'profileIcon',"type"=>"file"])}}
+                </div>
+            </div>
         </div>
 
     </div>
+
+            <div class="profileBox">
+                <button class="updateBtn" type="submit">更新</button>
+            </div>
+        {!! Form::close() !!}
 
 
 @endsection

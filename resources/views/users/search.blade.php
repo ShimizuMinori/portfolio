@@ -7,7 +7,7 @@
       <div class="search_form">
         {!! Form::open(array('url' => '/searching', 'method' => 'post')) !!}
 
-        {{ Form::text('search',null,['class' => 'input', 'placeholder' => 'ユーザー名']) }}
+        {{ Form::text('search',null,['class' => 'search', 'placeholder' => 'ユーザー名']) }}
         {!! Form::submit('🔎',['class' => 'search_btn']) !!}
         {!! Form::close() !!}
       </div>
@@ -36,11 +36,11 @@
             <!-- フォローワーがいる時は「はずす」ボタンを表示する -->
             <div class="">
               @if(in_array($result->id,$check))
-              <a href="/{{$result->id}}/unFollow"><p class="">フォローはずす</p></a>
+              <a href="/{{$result->id}}/unFollow"><p class="unfollowBtn">フォローはずす</p></a>
 
               <!-- フォロワーがいない時は「フォローする」ボタンを表示 -->
               @else
-              <a href="/{{$result->id}}/follow"><p class="">フォローする</p></a>
+              <a href="/{{$result->id}}/follow"><p class="followBtn">フォローする</p></a>
               @endif
             </div>
 

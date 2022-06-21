@@ -2,7 +2,16 @@
 html{
 }
 body{
+    color: #5f5d5d;
+
 }
+
+/* 余白チェック用 */
+/* *{
+    outline: 1px red solid;
+} */
+
+
 /* header */
 header{
     background:#3C4767;
@@ -12,13 +21,510 @@ header{
 #row{
     display: flex;
     flex-flow: row wrap;
+    width: 100%;
+    height: 100%;  
+    font-size: 0.9em;
+
 }
 #container{
     flex: 0 0 80%;
+    min-height: 100vh;
+    border-right: 1px solid #9c9c9c;
 }
+
+/* side-bar */
 #side-bar{
     flex: 0 0 19%;
-    border-left: 1px solid #6C6C6C;
-
-    /* ここに更新機能の収納を入れる */
 }
+
+
+/* ---login.blade.phpのヘッダー(topロゴ・ハンバーガーメニュー・アイコン)--- */
+header{
+    color: white;
+    position: relative;
+    z-index: 1;
+}
+
+#head{
+    position: relative;
+    /* display: flex;でlogoとuserを並べる */
+    display: flex;
+    height: 20%;
+    align-items: center;
+    background: #3C4767;
+}
+
+#userbox{
+    margin-left: auto;
+    display: relative;
+}
+
+#user{
+    /* #headのflexと関連している */
+    display: flex;
+    /* 右に寄せる */
+    justify-content: right;
+    /* 縦向きに寄せる */
+    align-items: center;
+    padding: 0 10px;
+}
+
+/* DAWNロゴ */
+.icon{
+    display: inline-block;
+    margin-left: 70px;
+}
+
+/* アイコン */
+.userIcon{
+    border-radius: 50%;
+    width: 4em;
+    height: 4em;
+}
+
+.username{
+    font-size: 1.1em;
+    cursor: pointer;
+}
+
+.nav{
+    position: absolute;
+    /*表示位置を指定*/
+    top: 100px;
+    right: 0;
+    /*文字色を黒にする*/
+    color: #000;
+    /*テキストを中央揃え*/
+    text-align: center;
+    /*全幅表示*/
+    width: 20%;
+    /*ナビを上に隠す*/
+    transform: translateY(-140%);
+    /*アニメーションの時間を指定*/
+    transition: all 0.6s;
+    z-index: -1;
+}
+
+.nav li{
+    width: 99%;
+    background: #ffffff;  
+    border:1px solid #000000;
+    text-align: center;
+    border: solid 1px #6C6C6C;
+    border-top: 0;
+}
+
+.nav li a {
+    display: block;
+    /*クリックできる領域を広げる*/
+    color: #6C6C6C;
+    padding: 20px 0;
+    text-decoration: none;
+}
+
+.nav li a:hover {
+    background-color: #DE553D;
+    color: #fff;
+}
+
+.nav.active {
+    transform: translateY(0);
+}
+
+/* ハンバーガーメニューspan */
+.menu-trigger {
+    width: 40px;
+    height: 42px;
+    cursor: pointer;
+    z-index: 3;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.menu-trigger span {
+    display: block;
+    width: 0.8em;
+    margin-top: 6px;
+    border-bottom: solid 2px #fff;
+    border-radius: 4px;
+    transition: .35s ease-in-out;
+    /*変化の速度を指定*/
+}
+
+  /* クリック前のspan */
+.menu-trigger span:nth-child(1) {
+    transform: rotate(60deg)
+}
+
+.menu-trigger span:nth-child(2) {
+    margin-top: -2px;
+    margin-left: 7px;
+    transform: rotate(-60deg)
+}
+
+/* クリック後のspan */
+.menu-trigger.active span:nth-child(1) {
+    transform: rotate(-60deg);
+}
+
+.menu-trigger.active span:nth-child(2) {
+    margin-left: 7px;
+    transform: rotate(60deg);
+}
+
+
+
+/* --- サイドバー --- */
+#confirm{
+    padding: 1em;
+    color: #6C6C6C;
+    /* 行間をあける */
+    line-height: 1.4em;
+    border-bottom: 1px solid #6C6C6C;
+
+}
+
+.follow{
+    margin-left: 1em;
+}
+
+.count{
+    text-align: right;
+}
+
+.btn{
+    background-color:#243361;
+    border-radius: 2px;
+    border: none;
+    width: 50%;
+    padding: 0.3em;
+    margin: 1em 0.5em 1em auto;
+    text-align: center;
+}
+
+.btn a{
+    font-size: 0.8em;
+    color: #fff;
+}
+
+.searchBtn{
+    background-color:#243361;
+    border-radius: 2px;
+    width: 50%;
+    padding: 0.3em;
+    margin: 2em auto;
+    text-align: center;
+}
+
+.searchBtn a{
+    color: #fff;
+    font-size: 0.8em;
+}
+
+
+/* index.blabe.php　投稿フォーム */
+#post{
+    display: flex;
+    padding: 20px 30px 10px 30px;
+    border-bottom: 2px solid #9c9c9c;
+}
+
+.newPost{
+    width: 500px;
+    border: none;
+    font-size: 1.2em;
+    color: #1f1f1f;
+    /* 入力例「何をつぶやこうか...?」の透明度 */
+    opacity: 0.8;
+    outline: none;
+    margin-left: 2em;
+    overflow-wrap: break-word;
+}
+
+
+.postBtn{
+    float: right;
+    border: none;
+    background: transparent;
+    margin-right: 10%;
+}
+
+/* index.blabe.php　投稿内容 */
+#Box{
+    padding: 1em 0em 2em 3em;
+    border-bottom: 1px solid #9e9d9d;
+}
+
+.postBox00{
+    padding: 5% 5% 5% 0%;
+}
+
+.postBox1{
+    display: flex;
+    align-items: center;
+}
+
+.postBox2{
+    font-size: 1.1em;
+    margin: 1.5em 0em 1em 1.5em;
+}
+
+.postuser{
+    margin: 0  4%;
+}
+.posttime{
+    float: right;
+    margin-left: 50%;
+}
+
+.postBox{
+    display: flex;
+    align-items: center;
+}
+
+.post{
+    padding: 3% 0% 0% 13%;
+    font-size: 1.1em;
+}
+
+
+.updeteBtn, .deleteBtn{
+    float: right;
+    margin-right: 2em;
+}
+
+/* モーダル */
+.overlay {
+/* 背景 */
+    display: none;
+
+    /* ①fixed：画面のきまった位置に固定
+    　　②top bottom left rightで具体的な位置を数字で調整 */
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    background-color: rgba(178, 178, 178, 0.2);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+  /* モーダルウィンドウ */
+.modal-window {
+    display: none;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* 「translate」要素の移動。X軸とY軸を指定して、それぞれに移動する長さ(px)を指定してる */
+    width: 50%;
+    height: 25%;
+    background-color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    z-index: 2;
+}
+
+.inner {
+    margin: 1% 3%;
+}
+
+.inner_post{
+    padding: 10%;
+}
+
+.inner-btn{
+    float: right;
+    border: none;
+    background: transparent;
+    margin-right: 10%;
+}
+
+
+
+
+/* search.blade.php　検索機能 */
+#search{
+    display: flex;
+    height: 10%;
+    padding: 20px 30px 10px 30px;
+}
+
+.search{
+    width: 400px;
+    height: 30px;
+    border: 1px solid;;
+    border-radius: 3px;
+    font-size: 1.2em;
+    color: #949494;
+    /* 入力例「何をつぶやこうか...?」の透明度 */
+    opacity: 0.9;
+    outline: none;
+    margin-top: 10px;
+    margin-left: 2em;
+    overflow-wrap: break-word;
+}
+
+.search_btn{
+    float: right;
+    border: none;
+    background: transparent;
+    margin-top: 17px;
+    margin-left: 15px;
+    size: 10px;
+}
+
+#result{
+    padding: 20px 30px 10px 30px;
+}
+
+.result_user{
+    margin-bottom: 2em;
+    display: flex;
+    align-items: center;
+}
+
+.bicImg{
+    border-radius: 50%;
+    width: 4em;
+    height: 4em;
+}
+
+.result_username{
+    margin: 0em auto 0em 3em;
+    color: dimgray;
+}
+
+.followBtn{
+    background-color:#4B71CA;
+    color: #fff;
+    border-radius: 3px;
+    padding: 0.6em;
+}
+
+.unfollowBtn{
+    background-color:#B95656;
+    color: #fff;
+    border-radius: 3px;
+    padding: 0.6em;
+}
+
+
+
+/* followerList & followList.blade.php */
+#followBox{
+    display: flex;
+    height: 13%;
+    padding: 20px 30px 10px 30px;
+    border-bottom: 2px solid #9c9c9c;
+    font-size: 1.5em;
+}
+
+.followsImage{
+    padding: 1.5em 0.8em 0em 0em;
+}
+
+.followsIcon{
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+}
+
+
+/* otherprofile.blade.php　他ユーザーのプロフィール */
+#otherprofileBox{
+    padding: 20px 30px 10px 30px;
+    border-bottom: 2px solid #9c9c9c;
+}
+
+.otherprofile{
+    display: flex;
+    align-items: center;
+}
+
+.profileName{
+    margin-left: 4%;
+    font-size: 1.1em;
+}
+
+.bio{
+    margin-left: 13%;
+}
+
+/* フォロワー無なら「フォローする」。カラーは#4B71CA */
+.profile_followBtn{
+    background-color:#4B71CA;
+    color: #fff;
+    border-radius: 3px;
+    padding: 0.6em;
+    display: inline-block;
+    margin-left: 75%;
+}
+
+/* フォロワー済みなら「フォロー外す」。カラーは#B95656 */
+.profile_unfollowBtn{
+    background-color:#B95656;
+    color: #fff;
+    border-radius: 3px;
+    padding: 0.6em;
+    display: inline-block;
+    margin-left: 75%;
+}
+
+#profilePost{
+    padding: 2em 0px 2em 3em;
+    border-bottom: 1px solid #9e9d9d;
+}
+
+
+/* profile.blade.php */
+#profile{
+    margin: 10% 0 0 9%;
+    display: flex;
+}
+
+.profileIcon{
+    margin-right: 4%;
+}
+
+.profileBox{
+    margin-top: 7%;
+    display: flex;
+    align-items: center;
+    font-size: 1.1em;
+}
+
+.formTitle{
+    display: flex;
+}
+
+form .profileForm{
+    display: inline-block;
+    margin-left: auto;
+    background-color: #dfdfdf;
+    border-radius: 4px;
+    border: none;
+    padding: 0.8em;
+}
+
+.profile_icon{
+    margin-left: 10%;
+    background-color: #dfdfdf;
+    border-radius: 4px;
+    border: none;
+    padding: 25px 15px;
+}
+
+
+
+/* 更新ボタン */
+.updateBtn{
+    background-color:#529771;
+    color: #fff;
+    border-radius: 4px;
+    border: none;
+    padding: 0.4em 2em;
+    margin: 0 0 0 75%;
+}
+

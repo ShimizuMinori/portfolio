@@ -56,7 +56,7 @@ class FollowsController extends Controller
 
         // 自分をフォローしている他ユーザー数
         $follower = \DB::table('follows')
-            ->where('follower_id','Auth::id()')
+            ->where('follower_id',Auth::id())
             ->get(['follow_id']);
         $count_follower = count($follower);
 

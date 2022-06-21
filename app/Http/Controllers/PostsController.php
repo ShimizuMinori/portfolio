@@ -96,7 +96,7 @@ class PostsController extends Controller
         $id = Auth::id();
 
         // $requestからinputを使ってつぶやきのidを抽出。
-        $post_id = $request->input('updated');
+        $post_id = $request->input('updateid');
         // $requestからinputを使ってupPost'（更新したつぶやき）を抽出。
         $up_post = $request->input('update');
 
