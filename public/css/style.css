@@ -347,7 +347,6 @@ header{
 /* search.blade.php　検索機能 */
 #search{
     display: flex;
-    height: 10%;
     padding: 20px 30px 10px 30px;
 }
 
@@ -364,6 +363,12 @@ header{
     margin-top: 10px;
     margin-left: 2em;
     overflow-wrap: break-word;
+}
+
+.search_word{
+    display: flex;
+    margin-top: 20px;
+    margin-left: 2em;
 }
 
 .search_btn{
@@ -415,7 +420,6 @@ header{
 /* followerList & followList.blade.php */
 #followBox{
     display: flex;
-    height: 13%;
     padding: 20px 30px 10px 30px;
     border-bottom: 2px solid #9c9c9c;
     font-size: 1.5em;

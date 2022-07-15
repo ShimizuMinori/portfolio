@@ -14,15 +14,18 @@ use Illuminate\Support\Facades\Validator;
 
 class PostsController extends Controller
 {
+    //①投稿機能
     public function create(Request $request)
     {
-        // バリデーションチェック
+        //バリデーション
+        //例文：$request->validate(['name属性' => '検証条件1|検証条件2|...']);
         $request->validate([
             'newPost' => 'required|max:100',
         ]);
 
 
         // ブラウザ上で入力したつぶやき情報
+        //$request->input(‘キー名’, ‘デフォルト値’)...指定したキー名のキーと値を取得
         $post = $request->input('newPost');
 
         //現在ログイン中のユーザーidを取得
@@ -38,34 +41,34 @@ class PostsController extends Controller
         return redirect('top');
     }
 
-    //
+    //②投稿内容を表示
     public function index(){
 
         //ログインユーザーの情報を取得
         Auth::user();
-        // //②user_idの取得：user_id
+        //ユーザーidを取得
         Auth::id();
 
 
         // つぶやきを格納したDBのpostsテーブルからデータを持ってくる
         $list= \DB::table('posts')
+        // joinを使って2つのテーブルを結合
         ->join('users','posts.user_id','=','users.id')
         // selectを使ってブラウザへ表示するデータを指定
         ->select('users.username','users.images','posts.id','posts.user_id','posts.posts', 'posts.created_at','images')
+        // distinctを使い重複レコード(データ行)を1つにまとめること
         ->distinct()
-
-        // ->where('follows.follow_id',Auth::id())
-
-        ->orWhere('users.id',Auth::id())
+        // whereを使って条件指定：ログインid = usersテーブルのid
+        ->where('users.id',Auth::id())
         // orderByを使ってブラウザへ表示する投稿内容の並順を指定
-        ->orderBy('posts.posts', 'DESC')
+        ->orderBy('created_at', 'DESC')
         // getを使って上記で定義した投稿内容を取得
         ->get();
         // return viewを使って、ページの遷移先を指定し、ビュー側に値を渡す
         return view('posts.index',['list'=>$list]);}
 
 
-    // 投稿したつぶやきの削除機能
+    // ③投稿したつぶやきの削除機能
     public function delete($id){
         \DB::table('posts')
         ->where('id',$id)
@@ -75,20 +78,22 @@ class PostsController extends Controller
     }
 
 
-    // 編集処理
+    // ④編集処理
     public function update(Request $request)
     {
         $rules = ['update' => 'max:200'];
         $message = ['update' => '200文字以内で入力してください。',];
 
-        //validator利用
+        //validator作成
+        //$validator=Validator::make(値の配列,ルール配列,エラーメッセージ配列);
+        //第1引数:チェックする値をまとめた配列,第2引数:検証ルール,第3引数:エラー
         $validator = Validator::make($request->all(), $rules, $message);
-        
-        //validation
-        if($validator->fails()) {
-        return redirect('/index')
-            ->withErrors($validator)
-            ->withInput();
+
+        if($validator->fails())//validation失敗した場合
+        {
+        return redirect('/index')//redirectで指定のアドレス/indexへ移動する
+            ->withErrors($validator)//引数の値を$errors変数へ保存してリダイレクト先まで引き継ぐ
+            ->withInput();//送信されたフォームの値をInput::old()へ引き継ぐ
         };
 
 

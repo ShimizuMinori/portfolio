@@ -8,7 +8,7 @@
 
     <div class="followsImage">
     @forelse($images as $images)
-        <a href="/{{$images->id}}/otherprofile"><img class="followsIcon" src="{{ asset('/images/' . $images->images) }}" alt="ユーザーアイコン"></a>
+        <a href="/{{$images->id}}/otherprofile"><img class="followsIcon" src="{{ asset('storage/' . $images->images) }}" alt="ユーザーアイコン"></a>
 
         @empty
         <p>フォローしている人はいません。</p>
@@ -23,7 +23,7 @@
 @forelse($list as $list)
 <div id="profilePost">
     <div class="postBox">
-        <a href="/{{$list->id}}/otherprofile"><img class="userIcon" src="{{ asset('/images/' . $images->images) }}" alt="ユーザーアイコン"></a>
+        <a href="/{{$list->id}}/otherprofile"><img class="userIcon" src="{{ asset('storage/' . $images->images) }}" alt="ユーザーアイコン"></a>
         <p class="postuser">{{$list->username}}</p>
         <p class="posttime">{{$list->created_at}}</p>
     </div>

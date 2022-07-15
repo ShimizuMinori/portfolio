@@ -29,7 +29,7 @@
 <body>
     <header>
         <div id = "head">
-            <a href="/index"><img class="icon" src="images/main_logo.png"></a>
+            <a href="/index"><img class="icon" src="{{asset('images/main_logo.png')}}"></a>
             <div id="userbox">
 
                 <div id="user">
@@ -46,7 +46,7 @@
                         <span></span>
                     </div>
 
-                <a href="/profile"><img class="userIcon" src="{{ asset('/images/' . $name->images) }}"></a>
+                <a href="/profile"><img class="userIcon" src="{{ asset('storage/'.$name->images) }}"></a>
 
                 </div>
 
@@ -90,7 +90,5 @@
 
     <footer>
     </footer>
-    <script src="JavaScriptファイルのURL"></script>
-    <script src="JavaScriptファイルのURL"></script>
 </body>
 </html>

@@ -10,31 +10,32 @@ class FollowsController extends Controller
     //
     public function followList(){
 
-        $username = Auth::user();
+        // $username = Auth::user();
 
-        // 自分がフォローしてる他ユーザーのカウント
-        $follow = \DB::table('follows')
-            ->where('follow_id','Auth::id()')
-            ->get(['follow_id']);
-        $count_follow = count($follow);
+        // 自分がフォローしてる他ユーザー
+        // $follow = \DB::table('follows')
+        //     ->where('follow_id','Auth::id()')
+        //     ->get(['follow_id']);
+        // $count_follow = count($follow);
 
 
-        // 自分をフォローしている他ユーザー数
-        $follower = \DB::table('follows')
-            ->where('follower_id','Auth::id()')
-            ->get(['follow_id']);
-        $count_follower = count($follower);
+        // 自分のことをフォローしている他ユーザー
+        // $follower = \DB::table('follows')
+        //     ->where('follower_id','Auth::id()')
+        //     ->get(['follow_id']);
+        // $count_follower = count($follower);
+
 
         // フォローリスト：id,images,posts,create_atの情報を抽出
         $list = \DB::table('users')
-            ->join('follows','users.id','=','follows.follower_id')
-            ->join('posts','users.id','=','posts.user_id')
+            ->join('follows','users.id','=','follows.follower_id') //フォローされる側のid,user.idを一致させ結合
+            ->join('posts','users.id','=','posts.user_id') //users.idとpost.idを一致させ結合
             ->select('users.id','users.images','users.username','posts.created_at','posts.posts')
-            ->where('follows.follow_id',Auth::id())
+            ->where('follows.follow_id',Auth::id()) //フォローする側=ログインユーザー
             ->orderBy('posts.created_at','desc')
-            ->get();        
+            ->get();
 
-        // フォローしてるアイコン
+        // フォローユーザーのアイコン
         $images = \DB::table('users')
             ->join('follows','users.id','=','follows.follower_id')
             ->select('users.id','users.images')
@@ -43,7 +44,6 @@ class FollowsController extends Controller
 
 
         return view('follows.followList',[
-            'username' => $username,
             'list' => $list,
             'images' => $images,
         ]);
@@ -54,13 +54,6 @@ class FollowsController extends Controller
 
     public function followerList(){
 
-        // 自分をフォローしている他ユーザー数
-        $follower = \DB::table('follows')
-            ->where('follower_id',Auth::id())
-            ->get(['follow_id']);
-        $count_follower = count($follower);
-
-
         // フォロワーリスト：id,images,posts,create_atの情報を抽出
         $list = \DB::table('users')
             ->join('follows','users.id','=','follows.follow_id')
@@ -68,7 +61,7 @@ class FollowsController extends Controller
             ->select('users.id','users.images','users.username','posts.created_at','posts.posts')
             ->where('follows.follower_id',Auth::id())
             ->orderBy('posts.created_at','desc')
-            ->get();        
+            ->get();
 
 
         // フォローしてるアイコン

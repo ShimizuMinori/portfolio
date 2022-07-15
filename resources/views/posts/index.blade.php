@@ -6,16 +6,20 @@
 
 <!-- 投稿フォーム -->
 <div id="post">
-    <div class="">
-    <img class="userIcon" src="{{ asset('/images/' . $name->images) }}">
-    {!! Form::open(['url' => 'post/create']) !!}
-    <div class="form-group">
-        {!! Form::input('text', 'newPost', null, ['required', 'class' => 'newPost', 'placeholder' => '何をつぶやこうか...?']) !!}
-    </div>
-    <button type="submit" class="postBtn">
-        <img src="/images/post.png" alt="投稿ボタン">
-    </button>
-    {!! Form::close() !!}
+    <div>
+        <img class="userIcon" src="{{ asset('storage/'.$name->images) }}">
+
+        {!! Form::open(['url' => 'post/create']) !!}
+
+            <div class="form-group">
+                {!! Form::input('text', 'newPost', null, ['required', 'class' => 'newPost', 'placeholder' => '何をつぶやこうか...?']) !!}
+            </div>
+
+            <button type="submit" class="postBtn">
+                <img src="/images/post.png" alt="投稿ボタン">
+            </button>
+
+        {!! Form::close() !!}
     </div>
 </div>
 
@@ -29,7 +33,7 @@
 
        <div class="postBox01">
            <div class="postBox1">
-                <img class="userIcon" src="/images/{{$list->images}}" alt="ユーザーアイコン">
+                <img class="userIcon" src="{{ asset('storage/'.$list->images) }}" alt="ユーザーアイコン">
                 <p class="postuser">{{ $name->username }}</p>
                 <p class="posttime">{{ $list->created_at }}</p>
             </div>
@@ -48,7 +52,7 @@
         <div class="updeteBtn">
             <!-- モーダルを開くボタン -->
             <a href="" class="modal-open" data-target="modal{{ $list->id }}">
-            <img src="{{ asset('images/edit.png') }}" alt="編集">
+            <img src="{{ ('images/edit.png') }}" alt="編集">
             </a>
         </div>
     </div>
@@ -64,7 +68,7 @@
                         {!! Form::input('hidden','updateid',$list->id) !!}
                         {!! Form::input('text','update',$list->posts,['class' => 'input', 'required']) !!}
                     </div>
-                    <button type="submit" class="inner-btn"><img src="{{ asset('images/edit.png') }}" alt="編集"></button>
+                    <button type="submit" class="inner-btn"><img src="{{ ('images/edit.png') }}" alt="編集"></button>
                     {!! Form::close() !!}
                 </div>
             </div>

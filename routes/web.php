@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 
 //ログイン処理
+//nameメソッド...特定のルートへのURLを生成したり、リダイレクトしたりする場合に使用される
 Route::get('/login', 'Auth\LoginController@login')->name('/login');
 Route::post('/login', 'Auth\LoginController@login');
 

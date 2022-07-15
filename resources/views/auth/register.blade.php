@@ -9,7 +9,12 @@
 <h2>新規ユーザー登録</h2>
 
 <p>Username<br>
-{{ Form::label('ユーザー名') }}
+<!--
+    htmlで書くと... <label for="name">文字</label>
+    ファザードで書くと... {{Form::label('name','文字')}} 
+-->
+
+{{ Form::label('') }}
 {{ Form::text('username',null,['class' => 'input',"placeholder"=>"dawn"]) }}
 </p>
 @if($errors->has('username'))
@@ -17,7 +22,7 @@
 @endif
 
 <p>Mail Adress<br>
-{{ Form::label('メールアドレス') }}
+{{ Form::label('') }}
 {{ Form::text('mail',null,['class' => 'input',"placeholder"=>"dawn@dawn.jp"]) }}
 </p>
 @if($errors->has('mail'))
@@ -25,7 +30,7 @@
 @endif
 
 <p>Password<br>
-{{ Form::label('パスワード') }}
+{{ Form::label('') }}
 {{ Form::password('password',null,['class' => 'input']) }}
 </p>
 @if($errors->has('password'))
@@ -33,7 +38,7 @@
 @endif
 
 <p>Password confirm<br>
-{{ Form::label('パスワード確認') }}
+{{ Form::label('') }}
 {{ Form::password('password_confirmation',null,['class' => 'input',"type"=>"password"]) }}
 </p>
 @if($errors->has('password_confirmation'))

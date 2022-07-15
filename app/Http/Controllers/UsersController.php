@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 //Authのユーザー情報
 use Illuminate\Support\Facades\Auth;
@@ -12,24 +13,13 @@ class UsersController extends Controller
 {
     //
 
-    // ユーザー検索
-    // layouts.loginのフォロー・フォロワーのカウントにもつがなっている
+    // ユーザー一覧
     public function search(){
 
         //①usernameの取得：username
         $username = Auth::user();
         //②user_idの取得：user_id
         $user_id = Auth::id();
-        //フォローしている人のidの取得、カウント：int
-        $follow = \DB::table('follows')
-            ->where('follow_id',$user_id)
-            ->get(['follower_id']);
-        $count_follow = count($follow);
-        //フォローされている人のidの取得、カウント：int
-        $follower = \DB::table('follows')
-            ->where('follower_id',$user_id)
-            ->get(['follow_id']);
-        $count_follower = count($follower);
         //ユーザー一覧を返す
         $result = \DB::table('users')
             ->select('username','id','images')
@@ -53,6 +43,9 @@ class UsersController extends Controller
 
     }
 
+
+
+            //ユーザー検索
             public function searching(Request $request){
 
                 //検索フォームの入力を取得
@@ -74,22 +67,15 @@ class UsersController extends Controller
                 $count_follower = count($follower);
                 //チェック用のfollowerを取り出す
                 $check1 = \DB::table('follows')
-                        ->where('follow_id',$user_id)
-                        ->select('follower_id')
+                        ->where('follow_id',$user_id)//① ログイン中のユーザーをフォローしてることが条件
+                        ->select('follower_id')//② ①のid
                         ->get()
                         ->toArray();
                 $check = array_column($check1,'follower_id');
-        
-                // login.phpのユーザーアイコン用
-                //コレクションで取得
-                $my_img = \DB::table('users')
-                          ->select('images')
-                          ->where('id',Auth::id())
-                          ->first();
-        
-        
+
+
                 //入力ありの場合
-                //issetはnullが偽
+                //isset関数は、変数に値がセットされていて、かつNULLでないときに、TRUEを戻り値として返す
                 if(isset($search_word)){
                     //検索
                     $result = \DB::table('users')
@@ -97,17 +83,16 @@ class UsersController extends Controller
                         ->get();
         
                     return view('users.search',[
-                        'search_word'=>$search_word,//ここにはnullが入ってる
+                        'search_word'=>$search_word,
                         'username'=>$username,
                         'result' => $result,
                         'count_follow'=>$count_follow,
                         'count_follower'=>$count_follower,
                         'check'=>$check,
-                        'my_img' => $my_img,
                     ]);
                 }
         
-                //未入力でユーザー一覧を返す
+                //未入力の場合ユーザー一覧を返す
                 $result = \DB::table('users')
                         ->select('username','images','id')
                         ->get();
@@ -119,7 +104,6 @@ class UsersController extends Controller
                     'count_follow'=>$count_follow,
                     'count_follower'=>$count_follower,
                     'check'=>$check,
-                    'my_img' => $my_img,
                 ]);
             }
 
@@ -146,10 +130,12 @@ class UsersController extends Controller
 
             return redirect('/search');}
 
+
+
             // 他ユーザープロフィール
             public function viewProfile($id){
 
-                // ①他ユーザーのプロフィルに表示する情報
+                // ①他ユーザーのプロフィールに表示する情報
                 // アイコン画像, username, Bio自己紹介文, 投稿内容
 
                 // ユーザーidと投稿内容を結合し情報を引っぱってくる
@@ -157,8 +143,8 @@ class UsersController extends Controller
                 ->join('posts','users.id','=','posts.user_id')
                 ->where('users.id',$id)
                 ->select('users.id','users.username','users.mail','users.password','users.bio','users.images','posts.user_id','posts.posts','posts.created_at')
+                //first():最初のレコードを返すメソッド。単一のレコードを取得したいときに使う
                 ->first();
-                // return view('users.otherprofile',['user' => $user,]);
 
                 // 他ユーザー投稿内容
                 $user_post = \DB::table('users')
@@ -166,8 +152,6 @@ class UsersController extends Controller
                 ->where('users.id',$id)
                 ->select('users.username','users.images','posts.user_id','posts.posts','posts.created_at')
                 ->get();
-
-                // return view('users.otherprofile',['user_post' => $user_post,]);
 
 
                 // ②フォローしてる場合→フォロー外すボタン、してない場合→フォローボタン
@@ -177,22 +161,25 @@ class UsersController extends Controller
                     ->select('follower_id')
                     ->get()
                     ->toArray();
+
+                //array_column( array $list , 多様な型 $column_key)
+                //第 1 引数( array $list )：多次元配列、またはオブジェクト配列
+                //第 2 引数(多様な型 $column_key )：配列の値にしたいカラム。 NULL を指定すると、配列やオブジェクトを返す
                 $check = array_column($check1,'follower_id');
 
-                
+
                 return view('users.otherprofile',[
                     'user' => $user,
                     'user_post' => $user_post,
                     'check' => $check,
                 ]);
-    
-        
-
             }
+
+
+
 
             // ログインユーザーのプロフィルに表示する情報
             // username, mail address, password伏字, newpassword伏字, Bio自己紹介文, アイコン画像
-            
             public function profile(Request $request){
 
                 \DB::table('users')
@@ -204,6 +191,9 @@ class UsersController extends Controller
 
             }
 
+
+
+            //プロフィール更新
             public function updateprofile(Request $request){
 
                 $rules = [
@@ -227,10 +217,10 @@ class UsersController extends Controller
                 ];
         
         
-                //validator利用
+                //validator作成
                 $validator = Validator::make($request->all(), $rules, $message);
         
-                //validation
+                //validation失敗した場合
                 if($validator->fails()) {
                     return redirect('/profile')
                     ->withErrors($validator)
@@ -250,8 +240,9 @@ class UsersController extends Controller
                 // 画像を更新
                 if(isset($update_images))
                 {
-
+                    //getClientOriginalName():アップロードしたファイルのオリジナル名を取得
                     $file_name = $update_images->getClientOriginalName();
+                    //storeAs：アップロードしたファイル名または任意の名前を付ける。格納先はpublic
                     $update_images->storeAs('', $file_name, 'public');
 
                      // 更新処理
@@ -260,20 +251,24 @@ class UsersController extends Controller
                     ->update([
                     'images' => $file_name,
                     ]);
+                }else{
 
-                    return redirect('/profile');
+                    // return redirect('/profile');
                 }
 
                 // 新しいパスワードを入力した場合
+                // usersテーブルのidと、inputを使って編集したidを一致させる。usersテーブルの各カラムに収納する
                 if(isset($update_password)){
+
                     $update_password = $request->input('update_password');
+
                     \DB::table('users')
                     ->where('id', Auth::id())
                     ->update(
                         ['username' => $username,
                         'mail' => $mail,
                         'bio' => $bio,
-                        'password' => bcrypt($update_password),
+                        'password' => bcrypt($update_password),　//bcrypt；ハッシュ化(暗号化)
                         ]);
 
                         return redirect('/profile');
@@ -281,7 +276,6 @@ class UsersController extends Controller
                 }else{
                 // 入力が何も無いときパスワードは更新せず、他項目を更新する
 
-                // usersテーブルのidと、inputを使って編集したidを一致させる。usersテーブルの各カラムに収納する
                 \DB::table('users')
                 ->where('id', Auth::id())
                 ->update(

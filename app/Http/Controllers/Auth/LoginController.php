@@ -35,19 +35,31 @@ class LoginController extends Controller
      *
      * @return void
      */
+
+
+    //MiddleWareを通すことで、各Controllerにアクセスされた際に
+    //ログイン済だとログインページに飛べないようにする
     public function __construct()
     {
+        //ログイン済み用Middleware"guest"を作成し、ログイン済でログインページに飛んだらトップページに転送されるようにする
+        //->except...「除く」ということで、logoutはログイン中の’guest’ミドルウェアからは除く
         $this->middleware('guest')->except('logout');
     }
-    
+
+
+
+
+
+    // ログイン処理
     public function login(Request $request){
-        if($request->isMethod('post')){
-            
+        // $request->isMethod(‘HTTP動詞’)...指定したHTTP動詞と一致していればtrueをそうでなければfalseを返す
+        if($request->isMethod('post'))
+        {
+            //mailとpasswordの取得
             $data=$request->only('mail','password');
-            // ログインが成功したら、トップページへ
-            //↓ログイン条件は公開時には消すこと
-            if(Auth::attempt($data)){
-                
+
+            if(Auth::attempt($data)) //取得したものとuserテーブルが照合していた場合(ログインが成功)
+            {
                 return redirect('/top');
             }
         }

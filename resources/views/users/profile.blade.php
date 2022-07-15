@@ -7,11 +7,11 @@
     <div id="profile">
 
         <div class="profileIcon">
-            <img class="userIcon" src="images/{{$name->images}}" alt="ログインユーザーのアイコン">
+            <img class="userIcon" src="{{ asset('storage/'.$name->images) }}" alt="ログインユーザーのアイコン">
         </div>
 
         {!! Form::open(['action' => 'UsersController@updateprofile', 'method' => 'post', 'files' => true]) !!}
-        <div class="">
+        <div>
             <div class="profileBox">
                 <p class="">UserName</p>
                 {{ Form::label('ユーザー名') }}
