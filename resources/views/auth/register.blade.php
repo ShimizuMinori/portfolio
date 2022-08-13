@@ -9,10 +9,6 @@
 <h2>新規ユーザー登録</h2>
 
 <p>Username<br>
-<!--
-    htmlで書くと... <label for="name">文字</label>
-    ファザードで書くと... {{Form::label('name','文字')}} 
--->
 
 {{ Form::label('') }}
 {{ Form::text('username',null,['class' => 'input',"placeholder"=>"dawn"]) }}

@@ -5,15 +5,12 @@
 html{
     height: 100%;
     color: white;
-    background-color: ;
 }
 body{
     height: 100%;
-
-    /* #3C4767から#dd563bにグラデーション */
-    background: -moz-linear-gradient(top, #3C4767 60%, #dd563b);
-    background: -webkit-linear-gradient(top, #3C4767 60%, #dd563b);
-    background: linear-gradient(to bottom, #3C4767 60%, #dd563b);
+    background: -moz-linear-gradient(top, #fdefe1 60%, #f8f8f8);
+    background: -webkit-linear-gradient(top, #fdefe1 60%, #f8f8f8);
+    background: linear-gradient(to bottom, #fdefe1 60%, #f8f8f8);
 }
 
 header{
@@ -25,7 +22,7 @@ header{
 #container{
     margin-left: auto;
     margin-right: auto;
-    background-color:rgba(50,59,86,0.7);
+    background-color:#EECDA3;
     width: 40%;
     height: auto;}
 
@@ -36,12 +33,16 @@ header{
     font-size: 1.1em;
 }
 
+.title{
+    color: #b5495b;
+}
+
 h2{
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 2em;
-
+    color: #b5495b;
 }
 
 form .input,input[type="password"],label{
@@ -55,7 +56,8 @@ form .input,input[type="password"],label{
 }
 
 form .btn{
-    background-color:#6a84d1;
+    background-color:#b5495b;
+    color:white;
     width: 40%;
     margin-left: 60%;
     border-radius: 4px;
@@ -63,7 +65,7 @@ form .btn{
 }
 
 .link{
-    color: white;
+    color: #b5495b;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -84,7 +86,7 @@ form .btn{
 }
 
 .btn{
-    background-color:#6a84d1;
+    background-color:#b5495b;
     border-radius: 2px;
     border: none;
     width: 35%;

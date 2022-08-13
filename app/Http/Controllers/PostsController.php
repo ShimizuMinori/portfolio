@@ -65,14 +65,15 @@ class PostsController extends Controller
         // getを使って上記で定義した投稿内容を取得
         ->get();
         // return viewを使って、ページの遷移先を指定し、ビュー側に値を渡す
-        return view('posts.index',['list'=>$list]);}
+        return view('posts.index',['list'=>$list]);
+    }
 
 
     // ③投稿したつぶやきの削除機能
     public function delete($id){
         \DB::table('posts')
-        ->where('id',$id)
-        ->delete();
+            ->where('id',$id)
+            ->delete();
 
         return redirect('/top');
     }
@@ -115,4 +116,31 @@ class PostsController extends Controller
 
         return redirect('/index');
     }
+
+    public function test(){
+
+        //ログインユーザーの情報を取得
+        Auth::user();
+        //ユーザーidを取得
+        Auth::id();
+
+
+        // つぶやきを格納したDBのpostsテーブルからデータを持ってくる
+        $test = \DB::table('posts')
+        // joinを使って2つのテーブルを結合
+            ->join('users','posts.user_id','=','users.id')
+        // selectを使ってブラウザへ表示するデータを指定
+            ->select('users.username','users.images','posts.id','posts.user_id','posts.posts', 'posts.created_at','images')
+        // distinctを使い重複レコード(データ行)を1つにまとめること
+            ->distinct()
+        // whereを使って条件指定：ログインid = usersテーブルのid
+            ->where('users.id',Auth::id())
+        // orderByを使ってブラウザへ表示する投稿内容の並順を指定
+            ->orderBy('created_at', 'DESC')
+        // getを使って上記で定義した投稿内容を取得
+            ->get();
+        // return viewを使って、ページの遷移先を指定し、ビュー側に値を渡す
+        return view('posts.test',['test' => $test]);
+    }
+
 }

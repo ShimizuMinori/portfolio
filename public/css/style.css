@@ -6,12 +6,6 @@ body{
 
 }
 
-/* 余白チェック用 */
-/* *{
-    outline: 1px red solid;
-} */
-
-
 /* header */
 header{
     background:#3C4767;
@@ -22,7 +16,7 @@ header{
     display: flex;
     flex-flow: row wrap;
     width: 100%;
-    height: 100%;  
+    height: 100%;
     font-size: 0.9em;
 
 }
@@ -51,7 +45,7 @@ header{
     display: flex;
     height: 20%;
     align-items: center;
-    background: #3C4767;
+    background: #EECDA3;
 }
 
 #userbox{
@@ -107,7 +101,7 @@ header{
 
 .nav li{
     width: 99%;
-    background: #ffffff;  
+    background: #ffffff;
     border:1px solid #000000;
     text-align: center;
     border: solid 1px #6C6C6C;
@@ -123,7 +117,7 @@ header{
 }
 
 .nav li a:hover {
-    background-color: #DE553D;
+    background-color: #b5495b;
     color: #fff;
 }
 
@@ -193,7 +187,7 @@ header{
 }
 
 .btn{
-    background-color:#243361;
+    background-color:#efc389;
     border-radius: 2px;
     border: none;
     width: 50%;
@@ -208,7 +202,7 @@ header{
 }
 
 .searchBtn{
-    background-color:#243361;
+    background-color:#efc389;
     border-radius: 2px;
     width: 50%;
     padding: 0.3em;
@@ -319,8 +313,8 @@ header{
     transform: translate(-50%, -50%);
     /* 「translate」要素の移動。X軸とY軸を指定して、それぞれに移動する長さ(px)を指定してる */
     width: 50%;
-    height: 25%;
-    background-color: #fff;
+    height: 30%;
+    background-color: #f8f3ed;
     border-radius: 5px;
     text-align: center;
     z-index: 2;

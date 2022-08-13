@@ -45,7 +45,8 @@
         <!-- 削除機能 -->
         <div class="deleteBtn">
             <a  href="/post/{{$list->id}}/delete"onclick="return confirm('こちらの投稿を削除してもよろしいでしょうか？')">
-            <img src="{{ asset('images/trash_h.png') }}" alt="削除" ></a>
+              <img src="{{ asset('images/trash_h.png') }}" alt="削除" >
+            </a>
         </div>
 
         <!-- 編集機能 -->
@@ -68,7 +69,9 @@
                         {!! Form::input('hidden','updateid',$list->id) !!}
                         {!! Form::input('text','update',$list->posts,['class' => 'input', 'required']) !!}
                     </div>
-                    <button type="submit" class="inner-btn"><img src="{{ ('images/edit.png') }}" alt="編集"></button>
+                    <button type="submit" class="inner-btn">
+                        <img src="{{ ('images/edit.png') }}" alt="編集">
+                    </button>
                     {!! Form::close() !!}
                 </div>
             </div>

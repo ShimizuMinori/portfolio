@@ -77,4 +77,3 @@ Route::get('/{id}/unFollow','UsersController@unFollow');
 // フォロー・フォロワー一覧
 Route::get('/followList','FollowsController@followList');
 Route::get('/followerList','FollowsController@followerList');
-

@@ -10,21 +10,6 @@ class FollowsController extends Controller
     //
     public function followList(){
 
-        // $username = Auth::user();
-
-        // 自分がフォローしてる他ユーザー
-        // $follow = \DB::table('follows')
-        //     ->where('follow_id','Auth::id()')
-        //     ->get(['follow_id']);
-        // $count_follow = count($follow);
-
-
-        // 自分のことをフォローしている他ユーザー
-        // $follower = \DB::table('follows')
-        //     ->where('follower_id','Auth::id()')
-        //     ->get(['follow_id']);
-        // $count_follower = count($follower);
-
 
         // フォローリスト：id,images,posts,create_atの情報を抽出
         $list = \DB::table('users')
